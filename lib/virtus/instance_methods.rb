@@ -66,6 +66,10 @@ module Virtus
       # @api public
       def to_h
         attributes.each_with_object({}) do |(k, v), h|
+          if v.nil?
+            h[k] = nil
+            next
+          end
           h[k] = v.respond_to?(:to_h) && !v.is_a?(Array) ? v.to_h : v
         end
       end
